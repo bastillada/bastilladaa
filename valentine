@@ -1,0 +1,70 @@
+import { useState } from "react";
+
+const phrases = [
+  "No",
+  "Are you sure?",
+  "Really sure?",
+  "Please:(",
+  "Don't do this to me",
+  "I'm gonna cry...",
+  "You are breaking my heart ;(",
+];
+
+function App() {
+  const [noCount, setNoCount] = useState(0);
+  const [yesPressed, setYesPressed] = useState(false);
+  const yesButtonSize = noCount * 20 + 16;
+
+  function handleNoClick() {
+    setNoCount(noCount + 1);
+  }
+
+  function getNoButtonText() {
+    return phrases[Math.min(noCount, phrases.length - 1)];
+  }
+
+  const containerStyle = {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    height: "100vh",
+  };
+
+  return (
+    <div style={containerStyle}>
+      {yesPressed ? (
+        <>
+          <img
+            alt="Bears kissing"
+            src="https://media.tenor.com/gUiu1zyxfzYAAAAi/bear-kiss-bear.gif"
+          />
+          <div className="text">Yey!!!</div>
+        </>
+      ) : (
+        <>
+          <img
+            alt="Bear with heart"
+            src="https://i.pinimg.com/originals/07/cb/9a/07cb9a9beb9e12d108064a1bba81ae39.gif"
+          />
+
+          <div>Will you be my valentine?</div>
+          <div>
+            <button
+              className="yesButton"
+              style={{ fontSize: yesButtonSize }}
+              onClick={() => setYesPressed(true)}
+            >
+              Yes
+            </button>
+            <button onClick={handleNoClick} className="noButton">
+              {getNoButtonText()}
+            </button>
+          </div>
+        </>
+      )}
+    </div>
+  );
+}
+
+export default App;
